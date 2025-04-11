@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Интерактивная раскраска</title>
+</head>
+<body>
+<p>&lt;!DOCTYPE html&gt;
+<html lang="ru">
+<head>
+ <meta charset="UTF-8">
+ <title>Интерактивная раскраска</title>
+ <style>
+ body { text-align: center; font-family: sans-serif; }
+ <span class="hashtag">#palette</span> button {
+ width: 40px;
+ height: 40px;
+ border: none;
+ margin: 5px;
+ cursor: pointer;
+ }
+ canvas {
+ border: 1px solid <span class="hashtag">#ccc</span>;
+ margin-top: 10px;
+ cursor: crosshair;
+ }
+ <span class="hashtag">#upload</span> {
+ margin: 15px;
+ }
+ </style>
+</head>
+<body></p>
+<h1>Раскраска: Загрузите свою картинку</h1>
+
+<p><input type="file" id="upload" accept="image/*">
+<br></p>
+<div id="palette">
+ <button style="background: red;" onclick="setColor('red')"></button>
+ <button style="background: blue;" onclick="setColor('blue')"></button>
+ <button style="background: green;" onclick="setColor('green')"></button>
+ <button style="background: yellow;" onclick="setColor('yellow')"></button>
+ <button style="background: black;" onclick="setColor('black')"></button>
+</div>
+<canvas id="canvas" width="600" height="600"></canvas>
+<script>
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+
+  let currentColor = "red";
+
+  function setColor(color) {
+    currentColor = color;
+  }
+
+  document.getElementById("upload").addEventListener("change", function(e) {
+    const file = <a class="autolink" href="https://e.target">e.target</a>.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(event) {
+      const img = new Image();
+      img.onload = function() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+      };
+      img.src = <a class="autolink" href="https://event.target">event.target</a>.result;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  canvas.addEventListener("click", function(e) {
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - <a class="autolink" href="https://rect.top">rect.top</a>;
+
+    ctx.beginPath();
+    ctx.arc(x, y, 10, 0, 2 * Math.PI);
+    ctx.fillStyle = currentColor;
+    ctx.fill();
+  });
+</script>
+
+<p></body>
+</html></p>
+</body>
+</html>
